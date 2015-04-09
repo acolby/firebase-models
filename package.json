@@ -9,6 +9,10 @@
   "scripts": {
     "test": "nodeunit test"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:acolby/firebase-models.git"
+  },
   "keywords": [
     "firebase",
     "ORM",
@@ -16,9 +20,15 @@
     "Q"
   ],
   "author": "acolby",
-  "license": "ISC",
+  "license": [{
+    "type": "MIT",
+    "url": "https://github.com/brentertz/scapegoat/blob/master/LICENSE-MIT"
+  }],
   "dependencies": {
     "firebase": "^2.2.3",
     "q": "^1.2.0"
+  },
+  "devDependencies": {
+    "nodeunit": "^0.9.1"
   }
 }
