@@ -214,13 +214,10 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 
 };
 /*
-C - Add, PUSH
-R - 
-U - Update
-D - RemoveReference
-
-
-
+C - add, push
+R - retrieve
+U - update
+D - removeReference
 */
 
 function rejectedPromise(error) {

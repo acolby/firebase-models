@@ -1,0 +1,24 @@
+{
+  "name": "firebase-models",
+  "version": "0.0.0",
+  "description": "takes a schema json, returning an an object promise based interface",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "nodeunit test"
+  },
+  "keywords": [
+    "firebase",
+    "ORM",
+    "nodejs",
+    "Q"
+  ],
+  "author": "acolby",
+  "license": "ISC",
+  "dependencies": {
+    "firebase": "^2.2.3",
+    "q": "^1.2.0"
+  }
+}
