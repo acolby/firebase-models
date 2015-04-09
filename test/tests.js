@@ -203,6 +203,7 @@ test.setReference = {
 	'success': function(test){
 		SchemaModel.users.setReference(addedUserId, 'emails', addedEmailsId)
 		.then(function(successObj){
+			test.equal(addedEmailsId, successObj);
 			test.done();
 		}).catch(function(error){
 			console.log(error);
@@ -231,6 +232,7 @@ test.addReference = {
 	'success': function(test){
 		SchemaModel.users.addReference(addedUserId, 'teams', addedTeamId)
 		.then(function(successObj){
+			test.equal(addedTeamId, successObj);
 			test.done();
 		}).catch(function(error){
 			console.log(error);

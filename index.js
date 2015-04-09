@@ -139,6 +139,9 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 					}else{
 						throw({'message': referenceName + ' does not contain id: ' + referenceValue});
 					}
+				})
+				.then(function(obj){
+					return referenceValue;
 				});
 			},
 			'addReference': function(id, referenceName, referenceValue) {
@@ -168,6 +171,9 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 					}else{
 						throw({'message': referenceName + ' does not contain id: ' + referenceValue});
 					}
+				})
+				.then(function(obj){
+					return referenceValue;
 				});
 			},
 			'removeReference': function(id, referenceName, referenceValue) {
