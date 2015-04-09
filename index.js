@@ -57,18 +57,19 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 
 		var modelRef = rootRef.child(model);
 
-		var doesExist = factories.doesExistFactory(modelRef, '*');
+		var doesExist = factories.doesExistFactory(modelRef, '*/*');
 		var add = factories.writeValueToLocationFactory(modelRef, '*');
 		var push = factories.pushValueToLocationFactory(modelRef);
 		var update = factories.writeValueToLocationFactory(modelRef, '*');
 		var setReference = factories.writeValueToLocationFactory(modelRef, '*/*');
 		var addReference = factories.pushValueToLocationFactory(modelRef, '*/*/*');
 		var removeReference = factories.removeValueAtLocationFactory(modelRef, '*/*/*');
+		var retrieve = factories.getValueAtLocationFactory(modelRef, '*');
 
 		// add base methods
 		SchemaModel[model] = {
 			'doesExist': function(id) {
-				return doesExist(id);
+				return doesExist(id, 'created');
 			},
 			'add': function(id, obj) {
 				for (var item in obj) {
@@ -104,7 +105,7 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 						});
 					}
 				}
-				return this.doesExist(id)
+				return this.doesExist(id, 'created')
 				.then(function(exists){
 					if(exists){
 						return update(obj, id);
@@ -124,7 +125,7 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 					}
 				}
 				// check if the reference exists in model reference name
-				return this.doesExist(id)
+				return this.doesExist(id, 'created')
 				.then(function(exists){
 					if(exists){
 						return SchemaModel[referenceName].doesExist(referenceValue);
@@ -155,7 +156,7 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 					}
 				}
 				// check if the reference exists in model reference name
-				return this.doesExist(id)
+				return this.doesExist(id, 'created')
 				.then(function(exists){
 					if(exists){
 						return SchemaModel[referenceName].doesExist(referenceValue);
@@ -187,7 +188,7 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 					}
 				}
 				// check if the reference exists in model reference name
-				return this.doesExist(id)
+				return this.doesExist(id, 'created')
 				.then(function(exists){
 					referenceName = 'ids_' + referenceName;
 					if(exists){
@@ -197,12 +198,30 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 						throw({'message': model + ' does not contain id: ' + id});
 					}
 				});
-				
+			},
+			'retrieve': function(id){
+				return this.doesExist(id, 'created')
+				.then(function(exists){
+					if(exists){
+						return retrieve(id);
+					}else{
+						throw({'message': model + ' does not contain id: ' + id});
+					}
+				});
 			}
 		};
 	}
 
 };
+/*
+C - Add, PUSH
+R - 
+U - Update
+D - RemoveReference
+
+
+
+*/
 
 function rejectedPromise(error) {
 	var deffered = q.defer();

@@ -199,6 +199,27 @@ test.update = {
 	}
 };
 
+test.retrieve = {
+	'success': function(test){
+		SchemaModel.users.retrieve(addedUserId)
+		.then(function(successObj){
+			test.equal(successObj.id, addedUserId);
+			test.done();
+		}).catch(function(error){
+			console.log(error);
+			FAILTEST(test, 'should not reject');
+		});
+	},
+	'invalid reference': function(test){
+		SchemaModel.users.retrieve('shouldnotseethis')
+		.then(function(successObj){
+			FAILTEST(test, 'should not resolve');
+		}).catch(function(error){
+			test.done();
+		});
+	}
+};
+
 test.setReference = {
 	'success': function(test){
 		SchemaModel.users.setReference(addedUserId, 'emails', addedEmailsId)
