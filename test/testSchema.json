@@ -1,0 +1,15 @@
+{
+	"users": {
+		"name": "",
+		"salt": "",
+		"id_emails": "",
+		"ids_teams": ""
+	},
+	"emails": {
+		"email": "",
+		"id_users": ""
+	},
+	"teams":{
+		"name": ""
+	}
+}
