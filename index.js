@@ -64,6 +64,9 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 		addModelToSchemaObject(model);
 	}
 
+	// global Objects
+	SchemaModel.SERVER_TIMESTAMP =  Firebase.ServerValue.TIMESTAMP;
+
 	return SchemaModel;
 
 	function addModelToSchemaObject(model) {
