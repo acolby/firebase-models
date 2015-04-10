@@ -231,6 +231,16 @@ test.setReference = {
 			FAILTEST(test, 'should not reject');
 		});
 	},
+	'success with sublable': function(test){
+		SchemaModel.users.setReference(addedUserId, 'emails_primary', addedEmailsId)
+		.then(function(successObj){
+			test.equal(addedEmailsId, successObj);
+			test.done();
+		}).catch(function(error){
+			console.log(error);
+			FAILTEST(test, 'should not reject');
+		});
+	},
 	'secondary referecne does not exist': function(test){
 		SchemaModel.users.setReference(addedUserId, 'emails', 'asdfasdfasdfa fasdf')
 		.then(function(successObj){
@@ -254,6 +264,16 @@ test.addReference = {
 		SchemaModel.users.addReference(addedUserId, 'teams', addedTeamId)
 		.then(function(successObj){
 			test.equal(addedTeamId, successObj);
+			test.done();
+		}).catch(function(error){
+			console.log(error);
+			FAILTEST(test, 'should not reject');
+		});
+	},
+	'success adding secondary ref': function(test){
+		SchemaModel.teams.addReference(addedTeamId, 'users_members', addedUserId)
+		.then(function(successObj){
+			test.equal(addedUserId, successObj);
 			test.done();
 		}).catch(function(error){
 			console.log(error);
@@ -296,37 +316,17 @@ test.removeReference = {
 			FAILTEST(test, 'should not reject');
 		});
 	},
-};
-
-/*
-test.addEmail = {
-	'adding new email for activated user': function(test){
-		firebaseWrapper.addEmail('activatedUser@live.com')
+	'success with sub reference': function(test){
+		SchemaModel.teams.removeReference(addedTeamId, 'users_members', addedUserId)
 		.then(function(successObj){
 			test.done();
 		}).catch(function(error){
+			console.log(error);
 			FAILTEST(test, 'should not reject');
-		});
-	},
-	'adding new email for unactivated': function(test){
-		firebaseWrapper.addEmail('unactivatedUser@live.com')
-		.then(function(successObj){
-			test.done();
-		}).catch(function(error){
-			FAILTEST(test, 'should not reject');
-		});
-	},
-	'adding email that exists already': function(test){
-		firebaseWrapper.addEmail('activatedUser@live.com')
-		.then(function(successObj){
-			FAILTEST(test, 'should not resolve');
-		}).catch(function(error){
-			test.deepEqual(error, errors[0]);
-			test.done();
 		});
 	},
 };
-*/
+
 //run last test
 test.lastTest = function(test){
     //do_clear_all_things_if_needed();
