@@ -101,9 +101,8 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 				return this.doesExist(id)
 				.then(function(exists){
 					if(exists){
-						return rejectedPromise({
-							'message': model + ' already contains id ' + id
-						});
+						obj.id = id;
+						return add(obj, id);
 					}else{
 						obj.id = id;
 						obj.created = Firebase.ServerValue.TIMESTAMP;
