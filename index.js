@@ -289,8 +289,6 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 
 	function buildSchemaModel(){
 
-		SchemaModel = {};
-
 		for (var model in schema) {
 			addModelToSchemaObject(model);
 		}
