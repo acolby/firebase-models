@@ -96,9 +96,20 @@ module.exports = function(s, firebaseUrl, firebaseSecret) {
 						});
 					}
 				}
-				obj.id = id;
-				obj.created = Firebase.ServerValue.TIMESTAMP;
-				return add(obj, id);
+				// check if the id already exists
+				var that = this;
+				return this.doesExist(id)
+				.then(function(exists){
+					if(exists){
+						return rejectedPromise({
+							'message': model + ' already contains id ' + id
+						});
+					}else{
+						obj.id = id;
+						obj.created = Firebase.ServerValue.TIMESTAMP;
+						return add(obj, id);
+					}
+				});
 			},
 			'push': function(obj) {
 				for (var item in obj) {
