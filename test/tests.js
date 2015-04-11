@@ -1,4 +1,5 @@
 var testSchema = require('./testSchema.json');
+var testSchema2 = require('./testSchema2.json');
 var firebaseModels = require('../');
 var Firebase = require('Firebase');
 
@@ -20,10 +21,11 @@ test.setTestDb = {
 	}
 };
 
+var SchemaModel = {};
+
 test.schemaValidation = {
 	'bad reference id_': function(test){
 		try{
-			console.log('ersadfasdfasdf');
 			firebaseModels({
 				"users": {
 					"id_people": ""
@@ -46,18 +48,25 @@ test.schemaValidation = {
 			test.done();
 		}
 	},
-	'validSchema': function(test){
+	'valid schema': function(test){
 		try{
-			firebaseModels(testSchema, testURL, testFirebaseSecret);
+			SchemaModel = firebaseModels(testSchema2, testURL, testFirebaseSecret);
 			test.done();
 		} catch(err){
 			console.log(err);
 			FAILTEST(test, 'should not be here');	
 		}
 	},
+	'add addtional schema': function(test){
+		try{
+			SchemaModel.addSchema(testSchema);
+			test.done();
+		} catch(err){
+			console.log(err);
+			FAILTEST(test, 'should not be here');	
+		}
+	}
 };
-
-var SchemaModel = firebaseModels(testSchema, testURL, testFirebaseSecret);
 
 var addedUserId = null;
 var addedTeamId = null;

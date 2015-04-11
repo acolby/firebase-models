@@ -1,0 +1,16 @@
+{
+	"users": {
+		"name": "",
+		"username": "",
+		"ids_teams": ""
+	},
+	"emails": {
+		"email": ""
+	},
+	"teams":{
+		"name": ""
+	},
+	"subDomains":{
+		"name": ""
+	}
+}
